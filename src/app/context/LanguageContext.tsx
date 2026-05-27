@@ -1,0 +1,372 @@
+import { createContext, useContext, useState, ReactNode } from 'react';
+
+type Language = 'en' | 'hi';
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+const translations = {
+  en: {
+    // Navbar
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.journey': 'Journey',
+    'nav.service': 'Service',
+    'nav.events': 'Events',
+    'nav.gallery': 'Gallery',
+    'nav.contact': 'Contact',
+
+    // Hero
+    'hero.name': 'Phoolchand Saini',
+    'hero.title': 'Retired Government Principal | Education Advocate | Social Leader',
+    'hero.tagline': '"Dedicated to shaping futures through education, serving communities with compassion, and inspiring change through social responsibility"',
+    'hero.connect': 'Connect With Me',
+    'hero.viewJourney': 'View My Journey',
+
+    // About Stats
+    'about.heading': 'A Life of Service & Leadership',
+    'about.intro': 'With over three decades dedicated to education and community development, I have had the privilege of touching countless lives through teaching, social service, and political participation.',
+    'about.trees': 'Trees Planted',
+    'about.students': 'Students Rewarded',
+    'about.campaigns': 'Social Campaigns',
+    'about.years': 'Years of Government Service',
+    'about.journeyTitle': 'My Journey & Values',
+    'about.para1': 'Born in 1956 in Nawalgarh, Phoolchand Saini dedicated his life to education, discipline, and public service. Raised with strong cultural values and a deep respect for learning, he pursued his higher education at Seth Gyaniram Bansidhar Podar College in 1980, laying the foundation for a lifelong journey in the field of education and social contribution.',
+    'about.para2': 'He began his professional career as a government teacher and went on to serve the education sector for more than 30 years with dedication and integrity. Through consistent hard work and leadership, he later became Principal and eventually retired in 2016 as the Principal of Government Senior Secondary School, Daderwa, Churu.',
+    'about.para3': 'During his tenure, he became widely respected not only as an educator but also as a mentor and guide for students from rural backgrounds. He personally supported many students by spending his own resources on their tuition, sports activities, educational materials, and student rewards. His commitment toward quality education helped inspire academic excellence in government schools.',
+    'about.para4': 'One of the proudest achievements of his career came when, under his leadership, students from his school secured positions in the district merit list for Class 10 examinations - a remarkable milestone at a time when private schools with high fees were considered dominant in quality education. He became the first sitting principal in his area to achieve this recognition for a government school, earning immense respect from students, parents, and the wider community.',
+    'about.para5': 'After retirement, he continued his journey of public service with even greater energy. He became actively involved in tree plantation drives, environmental awareness campaigns, animal welfare initiatives, social service programs, and community development activities. He also remained socially and politically active through participation in public welfare movements, cultural activities, and organizations associated with national and social values, including RSS activities and community outreach programs.',
+    'about.para6': 'Today, Phoolchand Saini is known as an educationist, mentor, environmental supporter, and social contributor whose life reflects dedication toward society, nation-building, and the upliftment of future generations.',
+    'about.tag1': 'Education Reform',
+    'about.tag2': 'Environmental Conservation',
+    'about.tag3': 'Social Justice',
+    'about.tag4': 'Community Development',
+
+    // Timeline
+    'timeline.heading': 'My Journey Through Time',
+    'timeline.subtitle': 'A timeline of education, leadership, student mentorship, and lifelong public service',
+    'timeline.1956.title': 'Born in Nawalgarh',
+    'timeline.1956.desc': 'Born in 1956 in Nawalgarh, Phoolchand Saini grew up with strong cultural values, discipline, and deep respect for learning.',
+    'timeline.1980.title': 'Higher Education at Podar College',
+    'timeline.1980.desc': 'Completed higher education at Seth Gyaniram Bansidhar Podar College, building the foundation for a life dedicated to education and social contribution.',
+    'timeline.career.title': 'Government Teacher to Principal',
+    'timeline.career.desc': 'Started his professional journey as a government teacher and served the education sector for more than 30 years with dedication, leadership, and integrity.',
+    'timeline.merit.title': 'District Merit Achievement',
+    'timeline.merit.desc': 'Under his leadership, students from a government school secured positions in the Class 10 district merit list, earning wide respect for academic excellence.',
+    'timeline.2016.title': 'Retired as Government Principal',
+    'timeline.2016.desc': 'Retired in 2016 as Principal of Government Senior Secondary School, Daderwa, Churu, after a respected career in public education.',
+    'timeline.after2016.title': 'Continued Public Service',
+    'timeline.after2016.desc': 'After retirement, continued active work in tree plantation, environmental awareness, animal welfare, social service, and community development initiatives.',
+    'timeline.present.title': 'Educationist and Social Contributor',
+    'timeline.present.desc': 'Today he is known as an educationist, mentor, environmental supporter, and social contributor dedicated to society, nation-building, and future generations.',
+
+    // Service
+    'service.heading': 'Social Service & Contributions',
+    'service.subtitle': 'Committed to creating lasting positive impact through dedicated community service and social initiatives',
+    'service.tree.title': 'Tree Plantation Drives',
+    'service.tree.desc': 'Leading environmental conservation efforts with massive tree plantation campaigns across rural areas, creating greener communities for future generations.',
+    'service.tree.stat': '500+ Trees Planted',
+    'service.scholarship.title': 'Student Scholarship Programs',
+    'service.scholarship.desc': 'Empowering meritorious students from underprivileged backgrounds through educational scholarships, books, and mentorship programs.',
+    'service.scholarship.stat': '500+ Students Supported',
+    'service.goshala.title': 'Goshala Support',
+    'service.goshala.desc': 'Supporting cow protection through regular donations and volunteer work at local goshalas, promoting animal welfare and traditional values.',
+    'service.goshala.stat': 'Regular Contributions',
+    'goshalaHighlight.eyebrow': 'Compassion In Action',
+    'goshalaHighlight.title': '15+ Years of Dedicated Goshala and Animal Welfare Service',
+    'goshalaHighlight.description': 'For more than 15 years, actively supporting goshalas through cow care, animal welfare donations, rescue-minded community help, and compassionate service for vulnerable animals.',
+    'service.blood.title': 'Public Welfare & Donations',
+    'service.blood.desc': 'Supporting public welfare through donations, assistive help, and community-led service for people in need. Focused on practical support, dignity, and timely assistance for vulnerable families and individuals.',
+    'service.blood.stat': 'Community Support Drives',
+    'service.village.title': 'Grassroots BJP Party Worker',
+    'service.village.desc': 'Actively working at the grassroots level with BJP workers and local communities to strengthen public outreach, civic awareness, and booth-level organization. Dedicated to connecting people with development-focused initiatives and national values.',
+    'service.village.stat': 'Active BJP Outreach',
+    'service.community.title': 'Community Gatherings',
+    'service.community.desc': 'Facilitating social and cultural events that bring communities together, strengthening bonds and promoting harmony.',
+    'service.community.stat': '100+ Events Facilitated',
+
+    // Events
+    'events.heading': 'Events & Public Activities',
+    'events.subtitle': 'Active participation in rallies, social gatherings, and community events',
+    'events.rally': 'Political Rally',
+    'events.national': 'National Event',
+    'events.educational': 'Educational',
+    'events.environmental': 'Environmental',
+    'events.social': 'Social',
+    'events.communitycat': 'Community',
+
+    // Gallery
+    'gallery.heading': 'Photo Gallery',
+    'gallery.subtitle': 'Moments captured from various events, ceremonies, and community service activities',
+    'gallery.all': 'All',
+    'gallery.awards': 'Awards',
+    'gallery.environment': 'Environment',
+    'gallery.national': 'National',
+    'gallery.community': 'Community',
+
+    // Testimonials
+    'testimonials.heading': 'Words of Appreciation',
+    'testimonials.subtitle': 'Testimonials from students, colleagues, and community members',
+    'testimonials.1.quote': "Phoolchand Saini's dedication to education transformed our school. His innovative teaching methods and compassionate leadership inspired an entire generation of students to pursue excellence.",
+    'testimonials.1.name': 'Prof. Anita Sharma',
+    'testimonials.1.role': 'Former Vice Principal',
+    'testimonials.2.quote': "Under his principalship, I received a scholarship that changed my life. Today, I'm an engineer because of his belief in me. He is a true mentor and guide.",
+    'testimonials.2.name': 'Rahul Verma',
+    'testimonials.2.role': 'Former Student, Software Engineer',
+    'testimonials.3.quote': "His environmental initiatives brought our community together. The tree plantation drives he organized have made our village greener and healthier. A true servant of society.",
+    'testimonials.3.name': 'Sarpanch Ramesh Patel',
+    'testimonials.3.role': 'Village Head',
+    'testimonials.4.quote': "Phoolchand Saini's commitment to social justice and educational reform is unparalleled. His political activism is driven by genuine concern for people's welfare, not personal gain.",
+    'testimonials.4.name': 'Advocate Priya Desai',
+    'testimonials.4.role': 'Social Activist',
+    'testimonials.5.quote': "As a teacher under his leadership, I learned the true meaning of education - not just imparting knowledge, but shaping character and inspiring change.",
+    'testimonials.5.name': 'Mrs. Kavita Singh',
+    'testimonials.5.role': 'Senior Teacher',
+    'testimonials.6.quote': "His blood donation camps and community service programs have saved countless lives. He leads by example, always putting others before himself.",
+    'testimonials.6.name': 'Dr. Arun Mehta',
+    'testimonials.6.role': 'District Hospital Administrator',
+
+    // Vision
+    'vision.heading': 'Vision for Society',
+    'vision.education.title': 'Educational Excellence',
+    'vision.education.desc': 'Ensure every child, regardless of economic background, has access to quality education and opportunities to reach their full potential.',
+    'vision.sustainable.title': 'Sustainable Development',
+    'vision.sustainable.desc': 'Build environmentally conscious communities through tree plantation, waste management, and sustainable living practices for future generations.',
+    'vision.harmony.title': 'Social Harmony',
+    'vision.harmony.desc': 'Foster unity, compassion, and mutual respect among all communities, creating a society where everyone thrives together.',
+    'vision.quote': '"Education is not just about acquiring knowledge; it is about building character, nurturing compassion, and empowering individuals to create positive change in society. Our greatest legacy is the impact we make on future generations."',
+    'vision.author': '- Phoolchand Saini',
+    'facebook.heading': 'Recent Facebook Activity',
+    'facebook.subtitle': 'Embedded in the official Facebook plugin style so visitors can view the latest available timeline content directly on the page.',
+    'facebook.profileLabel': 'Facebook Profile',
+    'facebook.profileName': 'Phoolchand Saini',
+    'facebook.profileDescription': 'Visit the profile to see the newest photos, posts, and community activity shared on Facebook.',
+    'facebook.liveTitle': 'Plugin note',
+    'facebook.liveDescription': 'The official Facebook timeline embed is designed for public Pages. If this profile URL does not expose a feed, the button below opens the latest activity on Facebook directly.',
+    'facebook.cta': 'View Recent Posts on Facebook',
+
+    // Contact
+    'contact.heading': 'Get In Touch',
+    'contact.subtitle': 'Feel free to reach out for collaborations, guidance, or community initiatives',
+    'contact.info': 'Contact Information',
+    'contact.phone': 'Phone',
+    'contact.email': 'Email',
+    'contact.address': 'Address',
+    'contact.addressLine1': '123, Green Valley Society',
+    'contact.addressLine2': 'Education District',
+    'contact.addressLine3': 'Gujarat, India - 380001',
+    'contact.social': 'Connect on Social Media',
+    'contact.message': 'Send a Message',
+    'contact.name': 'Name',
+    'contact.namePlaceholder': 'Your Name',
+    'contact.emailPlaceholder': 'your.email@example.com',
+    'contact.phonePlaceholder': '+91 98765 43210',
+    'contact.messageLabel': 'Message',
+    'contact.messagePlaceholder': 'Your message...',
+    'contact.send': 'Send Message',
+
+    // Footer
+    'footer.description': 'Dedicated to education, social service, and community development. Together, we can build a better tomorrow.',
+    'footer.quickLinks': 'Quick Links',
+    'footer.quote': '"Service to humanity is service to God"',
+    'footer.copyright': 'for the community.',
+
+    // WhatsApp
+    'whatsapp.tooltip': 'Chat on WhatsApp',
+  },
+  hi: {
+    // Navbar
+    'nav.home': 'मुख्य पृष्ठ',
+    'nav.about': 'परिचय',
+    'nav.journey': 'यात्रा',
+    'nav.service': 'सेवा',
+    'nav.events': 'कार्यक्रम',
+    'nav.gallery': 'गैलरी',
+    'nav.contact': 'संपर्क',
+
+    // Hero
+    'hero.name': 'फूलचंद सैनी',
+    'hero.title': 'सेवानिवृत्त सरकारी प्रधानाचार्य | शिक्षा समर्थक | सामाजिक नेता',
+    'hero.tagline': '"शिक्षा के माध्यम से भविष्य को आकार देने, करुणा के साथ समुदायों की सेवा करने और सामाजिक जिम्मेदारी के माध्यम से परिवर्तन को प्रेरित करने के लिए समर्पित"',
+    'hero.connect': 'मुझसे जुड़ें',
+    'hero.viewJourney': 'मेरी यात्रा देखें',
+
+    // About Stats
+    'about.heading': 'सेवा और नेतृत्व का जीवन',
+    'about.intro': 'शिक्षा और सामुदायिक विकास के लिए समर्पित तीन दशकों से अधिक समय के साथ, मुझे शिक्षण, सामाजिक सेवा और राजनीतिक भागीदारी के माध्यम से अनगिनत जीवन को छूने का सौभाग्य मिला है।',
+    'about.trees': 'पेड़ लगाए गए',
+    'about.students': 'छात्रों को पुरस्कृत किया',
+    'about.campaigns': 'सामाजिक अभियान',
+    'about.years': 'सरकारी सेवा के वर्ष',
+    'about.journeyTitle': 'मेरी यात्रा और मूल्य',
+    'about.para1': 'फूलचंद सैनी का जन्म 1956 में नवलगढ़ में हुआ। उन्होंने अपना जीवन शिक्षा, अनुशासन और जनसेवा को समर्पित किया। मजबूत सांस्कृतिक मूल्यों और शिक्षा के प्रति गहरे सम्मान के साथ उनका पालन-पोषण हुआ। उन्होंने 1980 में सेठ ज्ञानिराम बंसीधर पोदार कॉलेज से उच्च शिक्षा प्राप्त की, जिसने शिक्षा और सामाजिक योगदान के उनके जीवनभर के सफर की नींव रखी।',
+    'about.para2': 'उन्होंने अपने व्यावसायिक जीवन की शुरुआत सरकारी शिक्षक के रूप में की और 30 से अधिक वर्षों तक शिक्षा क्षेत्र में निष्ठा और ईमानदारी के साथ सेवा की। निरंतर मेहनत और नेतृत्व के बल पर वे बाद में प्रधानाचार्य बने और 2016 में राजकीय उच्च माध्यमिक विद्यालय, ददरेवा, चूरू के प्रधानाचार्य पद से सेवानिवृत्त हुए।',
+    'about.para3': 'अपने कार्यकाल के दौरान वे केवल एक शिक्षक के रूप में ही नहीं, बल्कि ग्रामीण पृष्ठभूमि के विद्यार्थियों के मार्गदर्शक और प्रेरक के रूप में भी अत्यंत सम्मानित रहे। उन्होंने अनेक विद्यार्थियों की ट्यूशन, खेल गतिविधियों, शैक्षणिक सामग्री और पुरस्कारों के लिए अपने निजी संसाधनों से सहयोग किया। गुणवत्तापूर्ण शिक्षा के प्रति उनकी प्रतिबद्धता ने सरकारी विद्यालयों में शैक्षणिक उत्कृष्टता को प्रेरित किया।',
+    'about.para4': 'उनके करियर की सबसे गौरवपूर्ण उपलब्धियों में से एक वह समय था जब उनके नेतृत्व में उनके विद्यालय के विद्यार्थियों ने कक्षा 10 की जिला मेरिट सूची में स्थान प्राप्त किया। यह उस दौर में एक उल्लेखनीय उपलब्धि थी, जब ऊंची फीस वाले निजी विद्यालयों को गुणवत्तापूर्ण शिक्षा में प्रमुख माना जाता था। वे अपने क्षेत्र के पहले कार्यरत प्रधानाचार्य बने जिन्होंने सरकारी विद्यालय के लिए यह सम्मान प्राप्त किया और विद्यार्थियों, अभिभावकों तथा समाज से अपार सम्मान अर्जित किया।',
+    'about.para5': 'सेवानिवृत्ति के बाद भी उन्होंने जनसेवा की अपनी यात्रा और अधिक ऊर्जा के साथ जारी रखी। वे वृक्षारोपण अभियानों, पर्यावरण जागरूकता कार्यक्रमों, पशु कल्याण पहलों, सामाजिक सेवा कार्यक्रमों और सामुदायिक विकास गतिविधियों में सक्रिय रूप से जुड़े रहे। वे जनकल्याण आंदोलनों, सांस्कृतिक गतिविधियों और राष्ट्रीय तथा सामाजिक मूल्यों से जुड़े संगठनों, जिनमें आरएसएस गतिविधियां और सामुदायिक संपर्क कार्यक्रम शामिल हैं, के माध्यम से सामाजिक और राजनीतिक रूप से भी सक्रिय रहे।',
+    'about.para6': 'आज फूलचंद सैनी एक शिक्षाविद, मार्गदर्शक, पर्यावरण समर्थक और सामाजिक योगदानकर्ता के रूप में जाने जाते हैं। उनका जीवन समाज, राष्ट्र निर्माण और आने वाली पीढ़ियों के उत्थान के प्रति समर्पण को दर्शाता है।',
+    'about.tag1': 'शैक्षिक सुधार',
+    'about.tag2': 'पर्यावरण संरक्षण',
+    'about.tag3': 'सामाजिक न्याय',
+    'about.tag4': 'सामुदायिक विकास',
+
+    // Timeline
+    'timeline.heading': 'समय के साथ मेरी यात्रा',
+    'timeline.subtitle': 'शिक्षा, नेतृत्व, विद्यार्थी मार्गदर्शन और जीवनभर की जनसेवा की समयरेखा',
+    'timeline.1956.title': 'नवलगढ़ में जन्म',
+    'timeline.1956.desc': '1956 में नवलगढ़ में जन्मे फूलचंद सैनी का पालन-पोषण मजबूत सांस्कृतिक मूल्यों, अनुशासन और शिक्षा के प्रति गहरे सम्मान के साथ हुआ।',
+    'timeline.1980.title': 'पोदार कॉलेज से उच्च शिक्षा',
+    'timeline.1980.desc': 'सेठ ज्ञानिराम बंसीधर पोदार कॉलेज से उच्च शिक्षा प्राप्त कर उन्होंने शिक्षा और सामाजिक योगदान के जीवनभर के सफर की नींव रखी।',
+    'timeline.career.title': 'सरकारी शिक्षक से प्रधानाचार्य तक',
+    'timeline.career.desc': 'उन्होंने सरकारी शिक्षक के रूप में अपना व्यावसायिक जीवन शुरू किया और 30 से अधिक वर्षों तक शिक्षा क्षेत्र में निष्ठा, नेतृत्व और ईमानदारी के साथ सेवा की।',
+    'timeline.merit.title': 'जिला मेरिट उपलब्धि',
+    'timeline.merit.desc': 'उनके नेतृत्व में सरकारी विद्यालय के विद्यार्थियों ने कक्षा 10 की जिला मेरिट सूची में स्थान प्राप्त किया और शैक्षणिक उत्कृष्टता के लिए व्यापक सम्मान अर्जित किया।',
+    'timeline.2016.title': 'सरकारी प्रधानाचार्य पद से सेवानिवृत्ति',
+    'timeline.2016.desc': 'वे 2016 में राजकीय उच्च माध्यमिक विद्यालय, ददरेवा, चूरू के प्रधानाचार्य पद से सेवानिवृत्त हुए।',
+    'timeline.after2016.title': 'जनसेवा जारी रखी',
+    'timeline.after2016.desc': 'सेवानिवृत्ति के बाद वे वृक्षारोपण, पर्यावरण जागरूकता, पशु कल्याण, सामाजिक सेवा और सामुदायिक विकास कार्यों में सक्रिय रहे।',
+    'timeline.present.title': 'शिक्षाविद और सामाजिक योगदानकर्ता',
+    'timeline.present.desc': 'आज वे एक शिक्षाविद, मार्गदर्शक, पर्यावरण समर्थक और सामाजिक योगदानकर्ता के रूप में जाने जाते हैं, जिनका जीवन समाज, राष्ट्र निर्माण और आने वाली पीढ़ियों के उत्थान को समर्पित है।',
+
+    // Service
+    'service.heading': 'सामाजिक सेवा और योगदान',
+    'service.subtitle': 'समर्पित सामुदायिक सेवा और सामाजिक पहलों के माध्यम से स्थायी सकारात्मक प्रभाव बनाने के लिए प्रतिबद्ध',
+    'service.tree.title': 'वृक्षारोपण अभियान',
+    'service.tree.desc': 'ग्रामीण क्षेत्रों में बड़े पैमाने पर वृक्षारोपण अभियानों के साथ पर्यावरण संरक्षण प्रयासों का नेतृत्व, भावी पीढ़ियों के लिए हरे-भरे समुदाय बनाना।',
+    'service.tree.stat': '500+ पेड़ लगाए गए',
+    'service.scholarship.title': 'छात्र छात्रवृत्ति कार्यक्रम',
+    'service.scholarship.desc': 'शैक्षिक छात्रवृत्ति, पुस्तकों और मार्गदर्शन कार्यक्रमों के माध्यम से वंचित पृष्ठभूमि के मेधावी छात्रों को सशक्त बनाना।',
+    'service.scholarship.stat': '500+ छात्रों को सहयोग दिया',
+    'service.goshala.title': 'गोशाला सहयोग',
+    'service.goshala.desc': 'स्थानीय गोशालाओं में नियमित दान और स्वयंसेवी कार्य के माध्यम से गौ संरक्षण का समर्थन, पशु कल्याण और पारंपरिक मूल्यों को बढ़ावा देना।',
+    'service.goshala.stat': 'नियमित योगदान',
+    'goshalaHighlight.eyebrow': 'सेवा और संवेदना',
+    'goshalaHighlight.title': '15+ वर्षों से गोशाला और पशु कल्याण के लिए समर्पित सेवा',
+    'goshalaHighlight.description': '15 से अधिक वर्षों से गोशालाओं, गौ सेवा, पशु कल्याण दान, जरूरतमंद पशुओं की सहायता और करुणामय सामुदायिक सहयोग के लिए निरंतर सक्रिय योगदान।',
+    'service.blood.title': 'जनकल्याण और दान सेवा',
+    'service.blood.desc': 'जरूरतमंद लोगों के लिए दान, सहायक सामग्री और सामुदायिक सेवा के माध्यम से जनकल्याण में सक्रिय सहयोग। कमजोर परिवारों और व्यक्तियों को सम्मान, व्यावहारिक सहायता और समय पर मदद पहुंचाने पर केंद्रित।',
+    'service.blood.stat': 'सामुदायिक सहयोग अभियान',
+    'service.village.title': 'जमीनी स्तर के भाजपा कार्यकर्ता',
+    'service.village.desc': 'भाजपा कार्यकर्ताओं और स्थानीय समुदायों के साथ जमीनी स्तर पर सक्रिय रूप से काम करते हुए जनसंपर्क, नागरिक जागरूकता और बूथ स्तर के संगठन को मजबूत करना। विकास केंद्रित पहलों और राष्ट्रीय मूल्यों से लोगों को जोड़ने के लिए समर्पित।',
+    'service.village.stat': 'सक्रिय भाजपा जनसंपर्क',
+    'service.community.title': 'सामुदायिक सभाएं',
+    'service.community.desc': 'सामाजिक और सांस्कृतिक कार्यक्रमों को सुविधाजनक बनाना जो समुदायों को एक साथ लाते हैं, बंधनों को मजबूत करते हैं और सद्भाव को बढ़ावा देते हैं।',
+    'service.community.stat': '100+ कार्यक्रम सुगम बनाए',
+
+    // Events
+    'events.heading': 'कार्यक्रम और सार्वजनिक गतिविधियां',
+    'events.subtitle': 'रैलियों, सामाजिक सभाओं और सामुदायिक कार्यक्रमों में सक्रिय भागीदारी',
+    'events.rally': 'राजनीतिक रैली',
+    'events.national': 'राष्ट्रीय कार्यक्रम',
+    'events.educational': 'शैक्षिक',
+    'events.environmental': 'पर्यावरणीय',
+    'events.social': 'सामाजिक',
+    'events.communitycat': 'सामुदायिक',
+
+    // Gallery
+    'gallery.heading': 'फोटो गैलरी',
+    'gallery.subtitle': 'विभिन्न कार्यक्रमों, समारोहों और सामुदायिक सेवा गतिविधियों से कैद किए गए पल',
+    'gallery.all': 'सभी',
+    'gallery.awards': 'पुरस्कार',
+    'gallery.environment': 'पर्यावरण',
+    'gallery.national': 'राष्ट्रीय',
+    'gallery.community': 'सामुदायिक',
+
+    // Testimonials
+    'testimonials.heading': 'प्रशंसा के शब्द',
+    'testimonials.subtitle': 'छात्रों, सहकर्मियों और समुदाय के सदस्यों के प्रशंसापत्र',
+    'testimonials.1.quote': 'फूलचंद सैनी की शिक्षा के प्रति समर्पण ने हमारे स्कूल को बदल दिया। उनके नवीन शिक्षण तरीकों और करुणामय नेतृत्व ने छात्रों की एक पूरी पीढ़ी को उत्कृष्टता की ओर प्रेरित किया।',
+    'testimonials.1.name': 'प्रो. अनिता शर्मा',
+    'testimonials.1.role': 'पूर्व उप प्रधानाचार्य',
+    'testimonials.2.quote': 'उनकी प्रधानाचार्यता के दौरान, मुझे एक छात्रवृत्ति मिली जिसने मेरा जीवन बदल दिया। आज मैं एक इंजीनियर हूं क्योंकि मुझ पर उनका विश्वास था। वे एक सच्चे मार्गदर्शक हैं।',
+    'testimonials.2.name': 'राहुल वर्मा',
+    'testimonials.2.role': 'पूर्व छात्र, सॉफ्टवेयर इंजीनियर',
+    'testimonials.3.quote': 'उनकी पर्यावरणीय पहल ने हमारे समुदाय को एक साथ लाया। उनके द्वारा आयोजित वृक्षारोपण अभियानों ने हमारे गांव को हरा-भरा और स्वस्थ बनाया है। समाज के सच्चे सेवक।',
+    'testimonials.3.name': 'सरपंच रमेश पटेल',
+    'testimonials.3.role': 'ग्राम प्रधान',
+    'testimonials.4.quote': 'फूलचंद सैनी की सामाजिक न्याय और शैक्षिक सुधार के प्रति प्रतिबद्धता अद्वितीय है। उनकी राजनीतिक सक्रियता लोगों के कल्याण के लिए वास्तविक चिंता से प्रेरित है, व्यक्तिगत लाभ से नहीं।',
+    'testimonials.4.name': 'अधिवक्ता प्रिया देसाई',
+    'testimonials.4.role': 'सामाजिक कार्यकर्ता',
+    'testimonials.5.quote': 'उनके नेतृत्व में एक शिक्षक के रूप में, मैंने शिक्षा का सच्चा अर्थ सीखा - केवल ज्ञान प्रदान करना नहीं, बल्कि चरित्र निर्माण और परिवर्तन को प्रेरित करना।',
+    'testimonials.5.name': 'श्रीमती कविता सिंह',
+    'testimonials.5.role': 'वरिष्ठ शिक्षक',
+    'testimonials.6.quote': 'उनके रक्तदान शिविरों और सामुदायिक सेवा कार्यक्रमों ने अनगिनत जीवन बचाए हैं। वे उदाहरण के द्वारा नेतृत्व करते हैं, हमेशा दूसरों को अपने से पहले रखते हैं।',
+    'testimonials.6.name': 'डॉ. अरुण मेहता',
+    'testimonials.6.role': 'जिला अस्पताल प्रशासक',
+
+    // Vision
+    'vision.heading': 'समाज के लिए दृष्टिकोण',
+    'vision.education.title': 'शैक्षिक उत्कृष्टता',
+    'vision.education.desc': 'यह सुनिश्चित करें कि हर बच्चे को, आर्थिक पृष्ठभूमि की परवाह किए बिना, गुणवत्ता शिक्षा और अपनी पूर्ण क्षमता तक पहुंचने के अवसर मिलें।',
+    'vision.sustainable.title': 'सतत विकास',
+    'vision.sustainable.desc': 'भावी पीढ़ियों के लिए वृक्षारोपण, अपशिष्ट प्रबंधन और टिकाऊ जीवन पद्धतियों के माध्यम से पर्यावरण के प्रति जागरूक समुदाय बनाएं।',
+    'vision.harmony.title': 'सामाजिक सद्भाव',
+    'vision.harmony.desc': 'सभी समुदायों के बीच एकता, करुणा और आपसी सम्मान को बढ़ावा दें, एक ऐसा समाज बनाएं जहां सभी एक साथ फलें-फूलें।',
+    'vision.quote': '"शिक्षा केवल ज्ञान प्राप्त करने के बारे में नहीं है; यह चरित्र निर्माण, करुणा को पोषित करने और व्यक्तियों को समाज में सकारात्मक परिवर्तन लाने के लिए सशक्त बनाने के बारे में है। हमारी सबसे बड़ी विरासत भावी पीढ़ियों पर हमारा प्रभाव है।"',
+    'vision.author': '- फूलचंद सैनी',
+    'facebook.heading': 'हाल की फेसबुक गतिविधि',
+    'facebook.subtitle': 'आधिकारिक फेसबुक प्लगइन शैली में जोड़ा गया है ताकि विज़िटर उपलब्ध टाइमलाइन सामग्री सीधे पेज पर देख सकें।',
+    'facebook.profileLabel': 'फेसबुक प्रोफाइल',
+    'facebook.profileName': 'फूलचंद सैनी',
+    'facebook.profileDescription': 'नवीनतम फोटो, पोस्ट और सामुदायिक गतिविधि देखने के लिए प्रोफाइल पर जाएं।',
+    'facebook.liveTitle': 'प्लगइन नोट',
+    'facebook.liveDescription': 'आधिकारिक फेसबुक टाइमलाइन एम्बेड सार्वजनिक Pages के लिए बनाया गया है। अगर इस प्रोफाइल URL पर फ़ीड उपलब्ध नहीं होती, तो नीचे का बटन फेसबुक पर नवीनतम गतिविधि खोल देगा।',
+    'facebook.cta': 'फेसबुक पर हाल की पोस्ट देखें',
+
+    // Contact
+    'contact.heading': 'संपर्क करें',
+    'contact.subtitle': 'सहयोग, मार्गदर्शन या सामुदायिक पहल के लिए बेझिझक संपर्क करें',
+    'contact.info': 'संपर्क जानकारी',
+    'contact.phone': 'फोन',
+    'contact.email': 'ईमेल',
+    'contact.address': 'पता',
+    'contact.addressLine1': '123, ग्रीन वैली सोसायटी',
+    'contact.addressLine2': 'शिक्षा जिला',
+    'contact.addressLine3': 'गुजरात, भारत - 380001',
+    'contact.social': 'सोशल मीडिया पर जुड़ें',
+    'contact.message': 'संदेश भेजें',
+    'contact.name': 'नाम',
+    'contact.namePlaceholder': 'आपका नाम',
+    'contact.emailPlaceholder': 'your.email@example.com',
+    'contact.phonePlaceholder': '+91 98765 43210',
+    'contact.messageLabel': 'संदेश',
+    'contact.messagePlaceholder': 'आपका संदेश...',
+    'contact.send': 'संदेश भेजें',
+
+    // Footer
+    'footer.description': 'शिक्षा, सामाजिक सेवा और सामुदायिक विकास के लिए समर्पित। साथ मिलकर, हम एक बेहतर कल का निर्माण कर सकते हैं।',
+    'footer.quickLinks': 'त्वरित लिंक',
+    'footer.quote': '"मानवता की सेवा ही ईश्वर की सेवा है"',
+    'footer.copyright': 'समुदाय के लिए।',
+
+    // WhatsApp
+    'whatsapp.tooltip': 'व्हाट्सएप पर चैट करें',
+  },
+};
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [language, setLanguage] = useState<Language>('en');
+
+  const t = (key: string): string => {
+    return translations[language][key] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+}
