@@ -67,9 +67,9 @@ export function Footer() {
           <div>
             <h4 className="mb-4">{t('contact.info')}</h4>
             <ul className="space-y-2 text-gray-400">
-              <li>{t('contact.phone')}: +91 98765 43210</li>
-              <li>{t('contact.email')}: phoolchandsaini@example.com</li>
-              <li>Gujarat, India</li>
+              <li>{t('contact.phone')}: +91 9414675268</li>
+              <li>{t('contact.email')}: pcsaini4256@gmail.com</li>
+              <li>{t('contact.location')}</li>
             </ul>
           </div>
         </div>

@@ -1,5 +1,11 @@
 import { Calendar, MapPin, Users as UsersIcon } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import republicDayNawalgarh from '../assets/republic-day-nawalgarh.jpeg';
+import operationSindoorRally from '../assets/operation-sindoor-rally.jpeg';
+import swachhBharatMission from '../assets/swachh-bharat-mission.jpeg';
+import communityTreePlantationDrive from '../assets/community-tree-plantation-drive.jpeg';
+import collegeEventNawalgarh from '../assets/college-event-nawalgarh.jpeg';
+import goshalaAnimalWelfare from '../assets/goshala-animal-welfare.jpeg';
 
 interface EventCardProps {
   title: string;
@@ -51,52 +57,52 @@ export function Events() {
 
   const events = [
     {
-      title: 'Education Reform Rally',
-      date: 'March 15, 2026',
-      location: 'District Headquarters',
-      attendees: '5,000+ Participants',
-      image: 'https://images.unsplash.com/photo-1774437678915-7ca15c2f6eec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBmbGFnJTIwcGF0cmlvdGljJTIwY2VyZW1vbnl8ZW58MXx8fHwxNzc5MTg2Mjg4fDA&ixlib=rb-4.1.0&q=80&w=600',
-      category: t('events.rally'),
-    },
-    {
-      title: 'Republic Day Celebration',
-      date: 'January 26, 2026',
-      location: 'Town Square',
-      attendees: '3,000+ Citizens',
-      image: 'https://images.unsplash.com/photo-1774437788490-cae0d3a2d40b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxJbmRpYW4lMjBmbGFnJTIwcGF0cmlvdGljJTIwY2VyZW1vbnl8ZW58MXx8fHwxNzc5MTg2Mjg4fDA&ixlib=rb-4.1.0&q=80&w=600',
-      category: t('events.national'),
-    },
-    {
-      title: 'Annual Merit Award Ceremony',
-      date: 'February 10, 2026',
-      location: 'Community Hall',
-      attendees: '500+ Students & Parents',
-      image: 'https://images.unsplash.com/photo-1659080925920-1683d25f772a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBzdHVkZW50cyUyMGVkdWNhdGlvbiUyMHNjaG9sYXJzaGlwJTIwYXdhcmRzfGVufDF8fHx8MTc3OTE4NjI4N3ww&ixlib=rb-4.1.0&q=80&w=600',
+      title: t('event.college.title'),
+      date: t('event.college.date'),
+      location: t('event.college.location'),
+      attendees: t('event.college.attendees'),
+      image: collegeEventNawalgarh,
       category: t('events.educational'),
     },
     {
-      title: 'Community Tree Plantation Drive',
-      date: 'April 5, 2026',
-      location: 'Multiple Villages',
-      attendees: '1,000+ Volunteers',
-      image: 'https://images.unsplash.com/photo-1707721690544-781fe6ede937?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzfHx0cmVlJTIwcGxhbnRhdGlvbiUyMEluZGlhJTIwY29tbXVuaXR5JTIwc2VydmljZXxlbnwxfHx8fDE3NzkxODYyODZ8MA&ixlib=rb-4.1.0&q=80&w=600',
+      title: t('event.republic.title'),
+      date: t('event.republic.date'),
+      location: t('event.republic.location'),
+      attendees: t('event.republic.attendees'),
+      image: republicDayNawalgarh,
+      category: t('events.national'),
+    },
+    {
+      title: t('event.goshala.title'),
+      date: t('event.goshala.date'),
+      location: t('event.goshala.location'),
+      attendees: t('event.goshala.attendees'),
+      image: goshalaAnimalWelfare,
+      category: t('events.culture'),
+    },
+    {
+      title: t('event.tree.title'),
+      date: t('event.tree.date'),
+      location: t('event.tree.location'),
+      attendees: t('event.tree.attendees'),
+      image: communityTreePlantationDrive,
       category: t('events.environmental'),
     },
     {
-      title: 'Youth Leadership Summit',
-      date: 'May 20, 2026',
-      location: 'Conference Center',
-      attendees: '800+ Young Leaders',
-      image: 'https://images.unsplash.com/photo-1592820186056-dc600b8ddff4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw0fHxjb21tdW5pdHklMjBnYXRoZXJpbmclMjBJbmRpYSUyMHNvY2lhbCUyMHNlcnZpY2V8ZW58MXx8fHwxNzc5MTg2Mjg3fDA&ixlib=rb-4.1.0&q=80&w=600',
-      category: t('events.social'),
+      title: t('event.swachh.title'),
+      date: t('event.swachh.date'),
+      location: t('event.swachh.location'),
+      attendees: t('event.swachh.attendees'),
+      image: swachhBharatMission,
+      category: t('events.governmentProgramme'),
     },
     {
-      title: 'Village Development Meeting',
-      date: 'December 12, 2025',
-      location: 'Panchayat Office',
-      attendees: '200+ Community Members',
-      image: 'https://images.unsplash.com/photo-1692609659165-1ec4d8108c0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw1fHxjb21tdW5pdHklMjBnYXRoZXJpbmclMjBJbmRpYSUyMHNvY2lhbCUyMHNlcnZpY2V8ZW58MXx8fHwxNzc5MTg2Mjg3fDA&ixlib=rb-4.1.0&q=80&w=600',
-      category: t('events.communitycat'),
+      title: t('event.sindoor.title'),
+      date: t('event.sindoor.date'),
+      location: t('event.sindoor.location'),
+      attendees: t('event.sindoor.attendees'),
+      image: operationSindoorRally,
+      category: t('events.nationalRally'),
     },
   ];
 

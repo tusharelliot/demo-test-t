@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 export function WhatsAppButton() {
   const { t } = useLanguage();
   const handleClick = () => {
-    const phoneNumber = '919876543210';
+    const phoneNumber = '916377802370';
     const message = encodeURIComponent('Hello Phoolchand Saini, I would like to connect with you.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };

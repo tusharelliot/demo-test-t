@@ -7,9 +7,9 @@ import { ServiceCards } from './components/ServiceCards';
 import { GoshalaHighlight } from './components/GoshalaHighlight';
 import { Events } from './components/Events';
 import { Gallery } from './components/Gallery';
-import { Testimonials } from './components/Testimonials';
+// import { Testimonials } from './components/Testimonials';
 import { Vision } from './components/Vision';
-import { FacebookFeed } from './components/FacebookFeed';
+// import { FacebookFeed } from './components/FacebookFeed';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { WhatsAppButton } from './components/WhatsAppButton';
@@ -26,9 +26,9 @@ export default function App() {
         <GoshalaHighlight />
         <Events />
         <Gallery />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Vision />
-        <FacebookFeed />
+        {/* <FacebookFeed /> */}
         <Contact />
         <Footer />
         <WhatsAppButton />

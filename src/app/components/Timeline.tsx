@@ -28,14 +28,14 @@ export function Timeline() {
     category: 'education',
   },
   {
-    year: 'Career',
+    year: t('timeline.career.year'),
     title: t('timeline.career.title'),
     description: t('timeline.career.desc'),
     icon: <GraduationCap size={24} />,
     category: 'education',
   },
   {
-    year: 'Milestone',
+    year: t('timeline.merit.year'),
     title: t('timeline.merit.title'),
     description: t('timeline.merit.desc'),
     icon: <Trophy size={24} />,
@@ -49,14 +49,14 @@ export function Timeline() {
     category: 'education',
   },
   {
-    year: 'After 2016',
+    year: t('timeline.after2016.year'),
     title: t('timeline.after2016.title'),
     description: t('timeline.after2016.desc'),
     icon: <HandHeart size={24} />,
     category: 'service',
   },
   {
-    year: 'Present',
+    year: t('timeline.present.year'),
     title: t('timeline.present.title'),
     description: t('timeline.present.desc'),
     icon: <Sparkles size={24} />,

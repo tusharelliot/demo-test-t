@@ -1,8 +1,32 @@
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Send } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useState } from 'react';
 
 export function Contact() {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const openMailMessage = () => {
+    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`,
+    );
+
+    window.location.href = `mailto:traunsaini.iitd@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    openMailMessage();
+    setSubmitted(true);
+    setFormData({ name: '', email: '', phone: '', message: '' });
+    setTimeout(() => setSubmitted(false), 5000);
+  };
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,8 +50,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-gray-600 mb-1">{t('contact.phone')}</p>
-                  <p className="text-gray-900">+91 98765 43210</p>
-                  <p className="text-gray-900">+91 98765 43211</p>
+                  <p className="text-gray-900">+91 9414675268</p>
                 </div>
               </div>
 
@@ -37,7 +60,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-gray-600 mb-1">{t('contact.email')}</p>
-                  <p className="text-gray-900">phoolchandsaini@example.com</p>
+                  <p className="text-gray-900">pcsaini4256@gmail.com</p>
                 </div>
               </div>
 
@@ -74,8 +97,11 @@ export function Contact() {
                     <Twitter size={24} />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/phoolchand.saini.1042?igsh=MTV2bmp2czZxOWFlYQ=="
+                    target="_blank"
+                    rel="noreferrer"
                     className="p-3 bg-[var(--accent)] text-[var(--saffron)] hover:bg-[var(--saffron)] hover:text-white transition-all duration-300 rounded-lg"
+                    aria-label="Open Instagram profile"
                   >
                     <Instagram size={24} />
                   </a>
@@ -86,11 +112,20 @@ export function Contact() {
 
           <div>
             <h3 className="text-2xl text-gray-900 mb-6">{t('contact.message')}</h3>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              {submitted && (
+                <div className="p-4 bg-green-100 text-green-700 rounded mb-4">
+                  Your email app has been opened with the message details.
+                </div>
+              )}
               <div>
                 <label className="block text-gray-700 mb-2">{t('contact.name')}</label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
                   placeholder={t('contact.namePlaceholder')}
                   className="w-full px-4 py-3 border border-gray-300 focus:border-[var(--saffron)] focus:outline-none transition-colors"
                   style={{ borderRadius: 'var(--radius)' }}
@@ -101,6 +136,10 @@ export function Contact() {
                 <label className="block text-gray-700 mb-2">{t('contact.email')}</label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                   placeholder={t('contact.emailPlaceholder')}
                   className="w-full px-4 py-3 border border-gray-300 focus:border-[var(--saffron)] focus:outline-none transition-colors"
                   style={{ borderRadius: 'var(--radius)' }}
@@ -111,6 +150,10 @@ export function Contact() {
                 <label className="block text-gray-700 mb-2">{t('contact.phone')}</label>
                 <input
                   type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
                   placeholder={t('contact.phonePlaceholder')}
                   className="w-full px-4 py-3 border border-gray-300 focus:border-[var(--saffron)] focus:outline-none transition-colors"
                   style={{ borderRadius: 'var(--radius)' }}
@@ -121,6 +164,10 @@ export function Contact() {
                 <label className="block text-gray-700 mb-2">{t('contact.messageLabel')}</label>
                 <textarea
                   rows={5}
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
                   placeholder={t('contact.messagePlaceholder')}
                   className="w-full px-4 py-3 border border-gray-300 focus:border-[var(--saffron)] focus:outline-none transition-colors resize-none"
                   style={{ borderRadius: 'var(--radius)' }}
@@ -129,7 +176,7 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="w-full px-6 py-4 bg-gradient-to-r from-[var(--saffron)] to-[var(--saffron-light)] text-white hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full px-6 py-4 bg-gradient-to-r from-[var(--saffron)] to-[var(--saffron-light)] text-white hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
                 style={{ borderRadius: 'var(--radius)' }}
               >
                 <Send size={20} />
